@@ -1,0 +1,78 @@
+1、
+        var i = 20;
+
+        function fn() {
+            i -= 2;
+            var i = 10;
+            return function (n) {
+                console.log((++i) - n);
+            }
+        }
+        var f = fn();
+        f(1);//10
+        f(2);//10
+        fn()(3);//8
+        fn()(4);//7
+        f(5);//8
+        console.log(i);//20
+2、
+        let x = 5;
+
+        function fn(x) {
+            return function (y) {
+                console.log(y + (++x));
+            }
+        }
+        let f = fn(6);
+        f(7);//14
+        fn(8)(9);//18
+        f(10);//18
+        console.log(x);//5
+3、
+        let x = 5;
+
+        function fn() {
+            return function (y) {
+                console.log(y + (++x));
+            }
+        }
+        let f = fn(6);
+        f(7);//13
+        fn(8)(9);//16
+        f(10);//18
+        console.log(x);//8
+4、
+        let a = 0,
+            b = 0;
+
+        function A(a) {
+            A = function (b) {
+                alert(a + b++);
+            };
+            alert(a++);
+        }
+        A(1);//1
+        A(2);//4
+5、
+        var n = 0;
+
+        function a() {
+            var n = 10;
+
+            function b() {
+                n++;
+                console.log(n);
+            }
+            b();
+            return b;
+        }
+        var c = a();//11
+        c();//12
+        console.log(n);//0
+6、
+        var test = (function (i) {
+            return function () {
+                alert(i *= 2);
+            }
+        })(2);
+        test(5);//4
