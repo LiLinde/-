@@ -1,0 +1,112 @@
+1、
+        let obj = {
+            fn: (function () {
+                return function () {
+                    console.log(this);
+                }
+            })()
+        };
+        obj.fn();//obj
+        let fn = obj.fn;
+        fn();//window
+2、
+        var fullName = 'language';
+        var obj = {
+            fullName: 'javascript',
+            prop: {
+                getFullName: function () {
+                    return this.fullName;
+                }
+            }
+        };
+        console.log(obj.prop.getFullName());//undefined
+        var test = obj.prop.getFullName;
+        console.log(test());//'language'
+3、
+        var name = 'window';
+        var Tom = {
+            name: "Tom",
+            show: function () {
+                console.log(this.name);
+            },
+            wait: function () {
+                var fun = this.show;
+                fun();
+            }
+        };
+        Tom.wait();//window
+4、        window.val = 1;
+        var json = {
+            val: 10,
+            dbl: function () {
+                this.val *= 2;
+            }
+        }
+        json.dbl();
+        var dbl = json.dbl;
+        dbl();
+        json.dbl.call(window);
+        alert(window.val + json.val);//'24'
+5、
+        (function () {
+            var val = 1;
+            var json = {
+                val: 10,
+                dbl: function () {
+                    val *= 2;
+                }
+            };
+            json.dbl();
+            alert(json.val + val);
+        })();//'12'
+6、
+        var num = 10;
+        var obj = {
+            num: 20
+        };
+        obj.fn = (function (num) {
+            this.num = num * 3;
+            num++;
+            return function (n) {
+                this.num += n;
+                num++;
+                console.log(num);
+            }
+        })(obj.num);
+        var fn = obj.fn;
+        fn(5);//22
+        obj.fn(10);//23
+        console.log(num, obj.num);//65,30
+7、
+------1、不能实现
+------2、点击每个按钮输出的都是循环完成后的i=5
+------3、把var改let就能实现。原理是let的运行机制是开出一个堆来储存每个循环的i，
+---------他执行的是自己堆中储存的i，已外边的i没有关系。
+
+8、闭包的作用是不与函数外的代码起冲突，函数体中的代码不被销毁。
+---优点是可以保留代码执行当中的记录
+---缺点是不能销毁，占用内存，造成内存溢出
+
+9、let定义的是块级变量，定义的变量只对他所在的区域内有效。
+   var定义的变量是全局变量或者函数变量，定义的变量范围最少是一个函数之内。
+
+10、
+        for (let i = 0; i < 10; i++) {
+            setTimeout(() => {
+                console.log(i);
+            }, 1000);
+        }
+11、
+        var b = 10;
+        (function b() {
+            b = 20;
+            console.log(b);//输出的是b这个函数
+        })();
+        console.log(b);//10
+        // 改后
+        var b = 10;
+        (function b() {
+          var b = 20;
+            console.log(b);//20
+        })();
+        console.log(b);//10
