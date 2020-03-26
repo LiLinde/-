@@ -1,0 +1,181 @@
+1¡¢
+        function fn(a,b){
+           let AA=a+b;
+            return function fn(c){
+               return AA+c
+            }
+        }
+        let res = fn(1, 2)(3);
+        console.log(res); //=>6  1+2+3
+2¡¢
+        var x = 2;
+        var y = {
+            x: 3,
+            z: (function (x) {
+                this.x *= x;
+                x += 2;
+                return function (n) {
+                    this.x *= n;
+                    x += 3;
+                    console.log(x);
+                }
+            })(x)
+        };
+        var m = y.z;
+        m(4);//7
+        y.z(5);//10
+        console.log(x, y.x);//16,15
+
+3¡¢
+        function Fn(n, m) {
+            n = n || 0;
+            m = m || 0;
+            this.x = n;
+            this.y = m;
+            this.getX = function () {
+                console.log(this.x);
+            }
+            return n + m;
+        }
+        Fn.prototype.sum = function () {
+            console.log(this.x + this.y);
+        }
+        Fn.prototype = {
+            getX: function () {
+                this.x += 1;
+                console.log(this.x);
+            },
+            getY: function () {
+                this.y -= 1;
+                console.log(this.y);
+            }
+        };
+        let f1 = new Fn(10, 20);
+        let f2 = new Fn;
+        console.log(f1.getX === f2.getX);//false
+        console.log(f1.getY === f2.getY);// this
+        console.log(f1.__proto__.getY === Fn.prototype.getY);//this
+        console.log(Fn.prototype.getX === f2.getX);//false 
+        console.log(f1.constructor);//Object(){}
+        f1.getX();//10
+        Fn.prototype.getX();//NaN
+        f2.getY();//-1
+        Fn.prototype.getY();//NaN
+        f1.sum();//TypeError: f1.sum is not a function
+
+4¡¢
+        function fun() {
+            this.a = 0;
+            this.b = function () {
+                alert(this.a);
+            }
+        }
+        fun.prototype = {
+            b: function () {
+                this.a = 20;
+                alert(this.a);
+            },
+            c: function () {
+                this.a = 30;
+                alert(this.a)
+            }
+        }
+        var my_fun = new fun();
+        my_fun.b();//0
+        my_fun.c();//30
+
+5¡¢
+        function C1(name) {
+            if (name) {
+                this.name = name;
+            }
+        }
+
+        function C2(name) {
+            this.name = name;
+        }
+
+        function C3(name) {
+            this.name = name || 'join';
+        }
+        C1.prototype.name = 'Tom';
+        C2.prototype.name = 'Tom';
+        C3.prototype.name = 'Tom';
+        alert((new C1().name) + (new C2().name) + (new C3().name));
+        //=====>'Tomundefinedjoin'
+6¡¢
+        function Fn() {
+            let a = 1;
+            this.a = a;
+        }
+        Fn.prototype.say = function () {
+            this.a = 2;
+        }
+        Fn.prototype = new Fn;
+        let f1 = new Fn
+        Fn.prototype.b = function () {
+            this.a = 3;
+        };
+        console.log(f1.a);//1
+        console.log(f1.prototype);//undefined
+        console.log(f1.b);//function(){this.a=3};
+        console.log(f1.hasOwnProperty('b'));//f
+        console.log('b' in f1);//t
+        console.log(f1.constructor == Fn);//t
+7¡¢
+        function Person() {
+            this.name = 'zhufeng'
+        };
+        Person.prototype.getName = function () {
+            console.log(this.name)
+            console.log(this.age)
+        };
+        Person.prototype.age = 5000;
+
+        var per1 = new Person;
+        per1.getName();//'zhufeng'5000
+        per1.age = 9;
+        per1.getName();//'zhufeng'9
+        console.log(per1.age);//9
+        var per2 = new Person;
+        per2.age=100;
+        console.log(per2.age);//5000
+8¡¢
+           let n = 10;
+        Number.prototype.plus = function plus(num) {
+            num = Number(num);
+            if (isNaN(num)) {
+                num = 0;
+            }
+            return this + num;
+        }
+        Number.prototype.minus = function minus(num) {
+            num = Number(num);
+            if (isNaN(num)) {
+                num = 0;
+            }
+            return this - num;
+
+        }
+        let m = n.plus(10).minus(5);
+        console.log(m); //=>15£¨10+10-5£©
+9¡¢
+        Array.prototype.unique = function unique() {          
+                let obj = {};
+                for (let i = 0; i < this.length; i++) {
+                    let item = this[i];
+                    if (obj[item] !== undefined) {
+                        this[i] = this[this.length - 1];
+                        this.length--;
+                        i--;
+                        continue;
+                    }
+                    obj[item] = item;
+
+                }
+                obj = null;
+                return this
+            }
+        let ary = [12, 23, 12, 13, 13, 12, 23, 14, 8];
+        ary.unique().sort((a, b) => a - b);
+        console.log(ary);//val3
