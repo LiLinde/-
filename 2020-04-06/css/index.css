@@ -1,0 +1,67 @@
+html,body{
+    background-color: #f5f5f5;
+}
+.box{
+    width: 1140px;
+    margin: 0 auto;
+}
+.box .nav{
+    width: 1140px;
+    background-color: #fff;
+    display: flex;
+    font-size: 18px;
+    height: 56px;
+    color: rgba(0, 0 ,0, 0.5) ;
+}
+.box .nav li{
+    line-height: 56px;
+    margin-right: 60px;
+}
+.box .nav li:nth-child(1){
+    font-size: 22px;
+    color: #000;
+    font-weight: 300;
+    margin-left: 20px;
+}
+.chanpinBox{
+    margin-top: 40px;
+    display: flex;
+    flex-wrap: wrap;
+}
+.listBox{
+    width: 212px;
+   background-color: #fff;
+    box-sizing: border-box;
+    padding-top: 10px;
+    margin-right: 20px;
+    margin-bottom: 20px ;
+}
+.listBox:nth-child(5){
+    margin-right: 0px;
+}
+.listBox:nth-child(10){
+    margin-right: 0px;
+}
+.listBox:hover{
+    box-shadow: 0px 5px 5px 3px #ccc;
+    transform: translatey(-3px);
+}
+.listBox img{
+    width: 100%;
+
+}
+.listBox li:nth-child(1){
+    margin: 0px;
+}
+.listBox li:nth-child(2){
+   
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+.listBox li{
+    margin: 0 20px;
+    line-height: 40px;
+    font-size: 16px;
+
+}
