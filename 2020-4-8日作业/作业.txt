@@ -1,0 +1,18 @@
+1¡¢    var str = 'https://baicu.com?abc=123&zf=666&px=888&_=t';
+    var reg = /([^?&=]+)=([^?&=]+)/g;
+    RegExp.prototype.execAll = function (str) {
+        let ary = {};
+        let _this = this;
+        if (_this.global == false) {
+            _this = new RegExp(_this, 'g');
+        }
+        res = _this.exec(str);
+        ary[res[1]] = res[2];
+        while (res) {
+            ary[res[1]] = res[2];
+            res = _this.exec(str)
+        }
+        return ary;
+    }
+
+    console.log(reg.execAll(str));//{abc: "123", zf: "666", px: "888", _: "t"}

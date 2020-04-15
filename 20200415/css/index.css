@@ -1,0 +1,39 @@
+html,body{
+    background: #D6D7DB;
+}
+.pubuliu{
+    box-sizing: border-box;
+    margin: 20px auto;
+    width: 1150px;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    flex-wrap: wrap;
+   
+}
+.pubuliu .liebiao{
+    width: 277px;
+    box-sizing: border-box;   
+    background: #fff;
+}
+.pubuliu .hezi:hover{
+    transform: translatey(-3px);   
+}
+.pubuliu .hezi img{
+    width: 100%;
+    height: 100%;    
+    opacity: 0;
+    transition: opacity .3s ease;
+}
+.pubuliu .hezi{
+    box-shadow: 0px 5px 5px 3px #222;
+    border: 8px solid #fff;
+    margin-bottom: 15px;
+}
+.pubuliu p{
+    color: #000;
+}
+.liebiao .tupian{
+    background: url(../images/default.gif) no-repeat center center #f4f4f4;
+    margin-bottom: 8px;  
+}
